@@ -1,12 +1,15 @@
 import Navbar from "./Navbar";
 import styled from "styled-components";
+import Sidebar from "./Sidebar";
+import ChatContent from "./ChatContent";
 
 const Chat = () => {
   return (
     <Container>
       <Navbar />
       <Main>
-        <p>Test</p>
+        <Sidebar />
+        <ChatContent />
       </Main>
     </Container>
   );
@@ -21,5 +24,6 @@ const Container = styled.div`
 `;
 
 const Main = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 280px auto;
 `;
