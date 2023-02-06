@@ -19,6 +19,7 @@ const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
   align-items: center;
   padding: 0 16px;
+  z-index: 10;
 `;
 
 const Heading = styled.h1`
