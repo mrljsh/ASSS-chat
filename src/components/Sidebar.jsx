@@ -7,5 +7,5 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Container = styled.div`
-  background-color: lightblue;
+  background-color: white;
 `;

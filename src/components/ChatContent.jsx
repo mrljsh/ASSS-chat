@@ -7,5 +7,5 @@ const ChatContent = () => {
 export default ChatContent;
 
 const Container = styled.div`
-  background-color: white;
+  background-color: #f1f1f1;
 `;
