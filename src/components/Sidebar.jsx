@@ -5,6 +5,7 @@ import { BiEnvelope, BiUser } from "react-icons/bi";
 const Sidebar = ({ rooms }) => {
   return (
     <Container>
+      <SchoolSection>Одсек у Аранђеловцу</SchoolSection>
       <GroupContainer>
         <SidebarLink to="./">
           <BiEnvelope />
@@ -33,10 +34,20 @@ const Container = styled.div`
   background-color: white;
   overflow-y: auto;
   scrollbar-width: none;
+  display: grid;
+  grid-template-rows: 64px min-content auto;
+  z-index: 9;
 
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const SchoolSection = styled.p`
+  box-shadow: rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 65px;
 `;
 
 const SidebarLink = styled(NavLink)`
