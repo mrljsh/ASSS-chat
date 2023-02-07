@@ -22,7 +22,7 @@ function ChatMessage() {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 16px;
+  padding: 8px 16px;
 `;
 
 const UserImage = styled.div`

@@ -18,6 +18,16 @@ const ChatContent = () => {
       </Header>
       <MessagesContainer>
         <ChatMessage />
+        <ChatMessage />
+
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
+        <ChatMessage />
       </MessagesContainer>
       <ChatInput />
     </Container>
@@ -30,6 +40,7 @@ const Container = styled.div`
   background-color: #f1f1f1;
   display: grid;
   grid-template-rows: 64px auto min-content;
+  overflow-y: auto;
 `;
 
 const Header = styled.div`
@@ -53,4 +64,6 @@ const ChannelDescription = styled.p`
   color: #757575;
 `;
 
-const MessagesContainer = styled.div``;
+const MessagesContainer = styled.div`
+  overflow-y: auto;
+`;
