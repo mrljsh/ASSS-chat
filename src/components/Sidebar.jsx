@@ -35,7 +35,8 @@ const Container = styled.div`
   overflow-y: auto;
   scrollbar-width: none;
   display: grid;
-  grid-template-rows: 65px min-content auto;
+  grid-template-rows: 64px min-content auto;
+  z-index: 9;
 
   &::-webkit-scrollbar {
     display: none;
@@ -43,7 +44,7 @@ const Container = styled.div`
 `;
 
 const SchoolSection = styled.p`
-  border-bottom: 1px solid rgba(204, 204, 204, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
   font-size: 1.5rem;
   text-align: center;
   line-height: 65px;
