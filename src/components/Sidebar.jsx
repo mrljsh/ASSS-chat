@@ -29,6 +29,12 @@ export default Sidebar;
 
 const Container = styled.div`
   background-color: white;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const SidebarLink = styled(NavLink)`
