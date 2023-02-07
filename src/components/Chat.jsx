@@ -31,7 +31,7 @@ const Chat = ({ userData }) => {
         <Routes>
           <Route path="/" element={<p>Privatne poruke</p>}></Route>
           <Route path="/profile" element={<p>Profil</p>} />
-          <Route path="/:roomId" element={<ChatContent />} />
+          <Route path="/chat/:roomId" element={<ChatContent />} />
         </Routes>
       </Main>
     </Container>
