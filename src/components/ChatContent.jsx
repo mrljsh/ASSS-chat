@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
+import ChatMessage from "./ChatMessage";
 
 const ChatContent = () => {
   const { roomId } = useParams();
@@ -15,7 +16,9 @@ const ChatContent = () => {
           </ChannelDescription>
         </ChannelDetails>
       </Header>
-      <MessagesContainer></MessagesContainer>
+      <MessagesContainer>
+        <ChatMessage />
+      </MessagesContainer>
       <ChatInput />
     </Container>
   );
