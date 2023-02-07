@@ -8,6 +8,10 @@ const Sidebar = () => {
         <SidebarLink to="/chat">Ваше приватне поруке</SidebarLink>
         <SidebarLink to="/">Ваш профил</SidebarLink>
       </GroupContainer>
+      <GroupContainer>
+        <GroupName>Предмети</GroupName>
+        <SidebarLink to="/chat/is"># информациони-системи</SidebarLink>
+      </GroupContainer>
     </Container>
   );
 };
@@ -41,4 +45,11 @@ const SidebarLink = styled(NavLink)`
 const GroupContainer = styled.div`
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(204, 204, 204, 0.4);
+`;
+
+const GroupName = styled.p`
+  padding: 8px 16px;
+  margin-top: 24px;
+  font-weight: 700;
+  color: #757575;
 `;
