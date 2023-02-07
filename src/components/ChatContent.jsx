@@ -7,7 +7,12 @@ const ChatContent = () => {
   return (
     <Container>
       <Header>
-        <p>{roomId}</p>
+        <ChannelDetails>
+          <ChannelName># {roomId} - Информациони системи</ChannelName>
+          <ChannelDescription>
+            Информационе системе предаје ...
+          </ChannelDescription>
+        </ChannelDetails>
       </Header>
       <MessagesContainer></MessagesContainer>
       <UserInput></UserInput>
@@ -25,7 +30,22 @@ const Container = styled.div`
 
 const Header = styled.div`
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+  padding: 8px 16px;
+`;
+
+const ChannelDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ChannelName = styled.p`
+  font-weight: 500;
+  font-size: 1.25em;
+`;
+
+const ChannelDescription = styled.p`
+  font-weight: 300;
+  color: #757575;
 `;
 
 const MessagesContainer = styled.div``;
