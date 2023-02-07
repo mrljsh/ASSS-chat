@@ -10,7 +10,9 @@ function ChatMessage() {
         ></img>
       </UserImage>
       <MessageContent>
-        <UserName>Драган Мрљеш</UserName>
+        <UserName>
+          Драган Мрљеш <span>7/2/2023 - 18:29</span>
+        </UserName>
         <Message>First Message</Message>
       </MessageContent>
     </Container>
@@ -42,11 +44,23 @@ const MessageContent = styled.div`
   padding: 8px 16px;
   background-color: white;
   border-radius: 24px;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #dfdfdf;
+  }
 `;
 
 const UserName = styled.span`
   font-weight: 500;
   font-size: 1.15em;
+
+  span {
+    font-weight: 300;
+    font-size: smaller;
+    margin-left: 4px;
+    color: rgb(97, 97, 97);
+  }
 `;
 
 const Message = styled.p`
