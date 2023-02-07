@@ -1,13 +1,27 @@
 import styled from "styled-components";
 import ASSSLogo from "./../assets/logo-arandjelovac.png";
 import { auth, provider } from "../firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+} from "firebase/auth";
 
 const Login = ({ handleUser }) => {
+  onAuthStateChanged(auth, (currentUser) => {
+    const user = {
+      name: currentUser.displayName,
+      photo: currentUser.photoURL,
+      email: currentUser.email,
+    };
+    handleUser(user);
+  });
+
   const signIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        // eslint-disable-next-line no-unused-vars
         const token = credential.accessToken;
         const user = result.user;
         const newUser = {
