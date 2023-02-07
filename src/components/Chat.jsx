@@ -1,7 +1,8 @@
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
-import { Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import ChatContent from "./ChatContent";
 
 const Chat = () => {
   return (
@@ -9,7 +10,11 @@ const Chat = () => {
       <Navbar />
       <Main>
         <Sidebar />
-        <Outlet />
+        <Routes>
+          <Route path="/" element={<p>Privatne poruke</p>}></Route>
+          <Route path="/profile" element={<p>Profil</p>} />
+          <Route path="/:roomId" element={<ChatContent />} />
+        </Routes>
       </Main>
     </Container>
   );

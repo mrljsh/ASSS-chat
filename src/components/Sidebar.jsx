@@ -6,11 +6,11 @@ const Sidebar = () => {
   return (
     <Container>
       <GroupContainer>
-        <SidebarLink to="/chat/">
+        <SidebarLink to="./">
           <BiEnvelope />
           Ваше приватне поруке
         </SidebarLink>
-        <SidebarLink to="/">
+        <SidebarLink to="./profile">
           <BiUser />
           Ваш профил
         </SidebarLink>
