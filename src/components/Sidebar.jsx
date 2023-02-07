@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <Container>
-      <SidebarLink>Vase privatne poruke</SidebarLink>
-      <SidebarLink>Vas profil privatne poruke</SidebarLink>
+      <GroupContainer>
+        <SidebarLink to="/chat">Ваше приватне поруке</SidebarLink>
+        <SidebarLink to="/">Ваш профил</SidebarLink>
+      </GroupContainer>
     </Container>
   );
 };
@@ -15,12 +18,14 @@ const Container = styled.div`
   background-color: white;
 `;
 
-const SidebarLink = styled.a`
+const SidebarLink = styled(NavLink)`
   display: block;
   padding: 8px 16px;
   color: #757575;
   transition: background-color 0.25s, color 0.15s, box-shadow 0.15s,
     opacity 0.25s, filter 0.25s, border 0.15s;
+  appearance: none;
+  text-decoration: none;
 
   &:hover {
     background-color: #ccc;
@@ -31,4 +36,9 @@ const SidebarLink = styled.a`
     background-color: #1561b9;
     color: white;
   }
+`;
+
+const GroupContainer = styled.div`
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(204, 204, 204, 0.4);
 `;
