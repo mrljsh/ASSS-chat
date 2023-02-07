@@ -1,7 +1,14 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const ChatContent = () => {
-  return <Container>ChatContent</Container>;
+  const { roomId } = useParams();
+
+  return (
+    <Container>
+      <p>{roomId}</p>
+    </Container>
+  );
 };
 
 export default ChatContent;
