@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import db from "../firebase";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import ChatContent from "./ChatContent";
 
 const Chat = () => {
   const [rooms, setRooms] = useState([]);
@@ -26,7 +28,11 @@ const Chat = () => {
       <Navbar />
       <Main>
         <Sidebar rooms={rooms} />
-        <Outlet />
+        <Routes>
+          <Route path="/" element={<p>Privatne poruke</p>}></Route>
+          <Route path="/profile" element={<p>Profil</p>} />
+          <Route path="/:roomId" element={<ChatContent />} />
+        </Routes>
       </Main>
     </Container>
   );
@@ -36,7 +42,7 @@ export default Chat;
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 60px auto;
+  grid-template-rows: 60px calc(100vh - 60px);
   height: 100vh;
 `;
 

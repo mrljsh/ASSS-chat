@@ -6,11 +6,11 @@ const Sidebar = ({ rooms }) => {
   return (
     <Container>
       <GroupContainer>
-        <SidebarLink to="/chat/">
+        <SidebarLink to="./">
           <BiEnvelope />
           Ваше приватне поруке
         </SidebarLink>
-        <SidebarLink to="/">
+        <SidebarLink to="./profile">
           <BiUser />
           Ваш профил
         </SidebarLink>
@@ -31,6 +31,12 @@ export default Sidebar;
 
 const Container = styled.div`
   background-color: white;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const SidebarLink = styled(NavLink)`
