@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import ChatContent from "./ChatContent";
 
-const Chat = () => {
+const Chat = ({ userData }) => {
   const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setUser(userData);
+
     if (!user) {
       navigate("/");
     }

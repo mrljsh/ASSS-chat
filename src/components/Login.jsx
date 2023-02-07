@@ -1,7 +1,27 @@
 import styled from "styled-components";
 import ASSSLogo from "./../assets/logo-arandjelovac.png";
+import { auth, provider } from "../firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-const Login = () => {
+const Login = ({ handleUser }) => {
+  const signIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        const newUser = {
+          name: user.displayName,
+          photo: user.photoURL,
+          email: user.email,
+        };
+        handleUser(newUser);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <Container>
       <LoginContainer>
@@ -10,7 +30,7 @@ const Login = () => {
           alt="Akademija Strukovnih studija Sumadija logo"
         />
         <Text>Пријава на апликацију ASSS Chat</Text>
-        <Button>Пријавите се путем Google</Button>
+        <Button onClick={() => signIn()}>Пријавите се путем Google</Button>
       </LoginContainer>
     </Container>
   );

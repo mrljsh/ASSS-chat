@@ -1,15 +1,19 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
 
 function App() {
+  const [user, setUser] = useState();
+
+  const getUser = (user) => {
+    setUser(user);
+  };
+
   return (
     <div className="App">
       <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/chat/*" element={<Chat />}></Route>
-        </Routes>
+        {!user ? <Login handleUser={getUser} /> : <Chat userData={user} />}
       </Router>
     </div>
   );
