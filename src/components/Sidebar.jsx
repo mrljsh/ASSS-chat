@@ -11,6 +11,8 @@ const Sidebar = () => {
       <GroupContainer>
         <GroupName>Предмети</GroupName>
         <SidebarLink to="/chat/is"># информациони-системи</SidebarLink>
+        <SidebarLink to="/chat/pr1"># програмирање-1</SidebarLink>
+        <SidebarLink to="/chat/web"># web-програмирање</SidebarLink>
       </GroupContainer>
     </Container>
   );
