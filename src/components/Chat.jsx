@@ -20,8 +20,6 @@ const Chat = () => {
     setRooms(channelsSnapshot.docs.map((channel) => channel.data()));
   };
 
-  console.log(rooms);
-
   return (
     <Container>
       <Navbar />
