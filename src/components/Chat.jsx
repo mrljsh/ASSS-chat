@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
-import ChatContent from "./ChatContent";
+import { Outlet } from "react-router-dom";
 
 const Chat = () => {
   return (
@@ -9,7 +9,7 @@ const Chat = () => {
       <Navbar />
       <Main>
         <Sidebar />
-        <ChatContent />
+        <Outlet />
       </Main>
     </Container>
   );
