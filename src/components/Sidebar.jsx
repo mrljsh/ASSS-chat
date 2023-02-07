@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { BiEnvelope, BiUser } from "react-icons/bi";
 
 const Sidebar = () => {
   return (
     <Container>
       <GroupContainer>
-        <SidebarLink to="/chat/">Ваше приватне поруке</SidebarLink>
-        <SidebarLink to="/">Ваш профил</SidebarLink>
+        <SidebarLink to="/chat/">
+          <BiEnvelope />
+          Ваше приватне поруке
+        </SidebarLink>
+        <SidebarLink to="/">
+          <BiUser />
+          Ваш профил
+        </SidebarLink>
       </GroupContainer>
       <GroupContainer>
         <GroupName>Предмети</GroupName>
@@ -32,6 +39,13 @@ const SidebarLink = styled(NavLink)`
     opacity 0.25s, filter 0.25s, border 0.15s;
   appearance: none;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  > svg {
+    margin-right: 8px;
+    font-size: 24px;
+  }
 
   &:hover {
     background-color: #ccc;
