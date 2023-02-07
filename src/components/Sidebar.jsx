@@ -5,7 +5,7 @@ const Sidebar = () => {
   return (
     <Container>
       <GroupContainer>
-        <SidebarLink to="/chat">Ваше приватне поруке</SidebarLink>
+        <SidebarLink to="/chat/">Ваше приватне поруке</SidebarLink>
         <SidebarLink to="/">Ваш профил</SidebarLink>
       </GroupContainer>
       <GroupContainer>
