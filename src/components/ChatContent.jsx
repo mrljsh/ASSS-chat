@@ -18,16 +18,6 @@ const ChatContent = () => {
       </Header>
       <MessagesContainer>
         <ChatMessage />
-        <ChatMessage />
-
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
-        <ChatMessage />
       </MessagesContainer>
       <ChatInput />
     </Container>
