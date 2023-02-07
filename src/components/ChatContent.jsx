@@ -30,7 +30,7 @@ const Container = styled.div`
 
 const Header = styled.div`
   background-color: white;
-  padding: 8px 16px;
+  padding: 8px 24px;
 `;
 
 const ChannelDetails = styled.div`
@@ -44,6 +44,7 @@ const ChannelName = styled.p`
 `;
 
 const ChannelDescription = styled.p`
+  margin-top: 4px;
   font-weight: 300;
   color: #757575;
 `;
