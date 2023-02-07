@@ -1,7 +1,6 @@
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
-import { Outlet } from "react-router-dom";
 import db from "../firebase";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useEffect, useState } from "react";
@@ -20,8 +19,6 @@ const Chat = () => {
     const channelsSnapshot = await getDocs(channels);
     setRooms(channelsSnapshot.docs.map((channel) => channel.data()));
   };
-
-  console.log(rooms);
 
   return (
     <Container>
