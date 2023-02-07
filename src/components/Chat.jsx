@@ -9,6 +9,7 @@ import ChatContent from "./ChatContent";
 
 const Chat = () => {
   const [rooms, setRooms] = useState([]);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     getChannels();
