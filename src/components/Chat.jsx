@@ -4,23 +4,18 @@ import Sidebar from "./Sidebar";
 import db from "../firebase";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ChatContent from "./ChatContent";
 
 const Chat = ({ userData }) => {
   const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState();
-  const navigate = useNavigate();
 
   useEffect(() => {
     setUser(userData);
 
-    if (!user) {
-      navigate("/");
-    }
-
     getChannels();
-  }, []);
+  }, [userData]);
 
   const getChannels = async () => {
     const channels = collection(db, "rooms");
