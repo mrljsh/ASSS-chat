@@ -22,6 +22,8 @@ const Container = styled.div`
   align-items: center;
   padding: 0 16px;
   z-index: 10;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Heading = styled.h1`
