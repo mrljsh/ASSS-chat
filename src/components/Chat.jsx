@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ChatContent from "./ChatContent";
 
-const Chat = () => {
+const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
+  const [user, setUser] = useState();
 
   useEffect(() => {
+    setUser(userData);
+
     getChannels();
-  }, []);
+  }, [userData]);
 
   const getChannels = async () => {
     const channels = collection(db, "rooms");
@@ -22,13 +25,13 @@ const Chat = () => {
 
   return (
     <Container>
-      <Navbar />
+      <Navbar user={user} signOut={signOut} />
       <Main>
         <Sidebar rooms={rooms} />
         <Routes>
           <Route path="/" element={<p>Privatne poruke</p>}></Route>
           <Route path="/profile" element={<p>Profil</p>} />
-          <Route path="/:roomId" element={<ChatContent />} />
+          <Route path="/chat/:roomId" element={<ChatContent />} />
         </Routes>
       </Main>
     </Container>

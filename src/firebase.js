@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore/lite";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
 
   authDomain: "asss-chat-test.firebaseapp.com",
 
@@ -10,14 +11,21 @@ const firebaseConfig = {
 
   storageBucket: "asss-chat-test.appspot.com",
 
-  messagingSenderId: import.meta.env.REACT_APP_MASSAGING_SENDER_ID,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 
-  appId: import.meta.env.REACT_APP_FIREBASE_APP_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  login_hint: "korisnik@vsar.edu.rs",
+});
+
+export { auth, provider };
 
 export default db;
