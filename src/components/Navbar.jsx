@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import NavbarUser from "./NavbarUser";
 import ASSSLogo from "./../assets/logo-arandjelovac.png";
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   return (
     <Container>
       <Branding>
         <Img src={ASSSLogo} alt="ASSS logo" />
         <Heading>ASSS Chat</Heading>
       </Branding>
+      {user && <NavbarUser user={user} />}
     </Container>
   );
 };
