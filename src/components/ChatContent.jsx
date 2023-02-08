@@ -24,25 +24,26 @@ const ChatContent = () => {
         console.log("No such document!");
       }
     };
+
+    function getMessages() {
+      return onSnapshot(
+        query(
+          collection(db, "rooms", roomId, "chat"),
+          orderBy("timestamp", "asc")
+        ),
+        (querySnapshot) => {
+          const messages = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setMessages(messages);
+        }
+      );
+    }
+
     getChannel();
     getMessages();
   }, [roomId]);
-
-  function getMessages() {
-    return onSnapshot(
-      query(
-        collection(db, "rooms", roomId, "chat"),
-        orderBy("timestamp", "asc")
-      ),
-      (querySnapshot) => {
-        const messages = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setMessages(messages);
-      }
-    );
-  }
 
   return (
     <Container>
