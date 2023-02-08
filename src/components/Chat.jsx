@@ -25,7 +25,7 @@ const Chat = ({ userData }) => {
 
   return (
     <Container>
-      <Navbar />
+      <Navbar user={user} />
       <Main>
         <Sidebar rooms={rooms} />
         <Routes>

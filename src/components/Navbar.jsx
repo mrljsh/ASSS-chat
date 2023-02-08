@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import NavbarUser from "./NavbarUser";
 import ASSSLogo from "./../assets/logo-arandjelovac.png";
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   return (
     <Container>
       <Branding>
         <Img src={ASSSLogo} alt="ASSS logo" />
         <Heading>ASSS Chat</Heading>
       </Branding>
+      {user && <NavbarUser user={user} />}
     </Container>
   );
 };
@@ -20,6 +22,8 @@ const Container = styled.div`
   align-items: center;
   padding: 0 16px;
   z-index: 10;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Heading = styled.h1`
