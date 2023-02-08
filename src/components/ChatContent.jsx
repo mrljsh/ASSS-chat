@@ -11,7 +11,7 @@ import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 const ChatContent = () => {
   const { roomId } = useParams();
   const [channel, setChannel] = useState({});
-  const [messages, setMessages] = useState({});
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const getChannel = async () => {
@@ -57,7 +57,9 @@ const ChatContent = () => {
         </ChannelDetails>
       </Header>
       <MessagesContainer>
-        <ChatMessage />
+        {messages.map((message) => (
+          <ChatMessage key={message.id} message={message} />
+        ))}
       </MessagesContainer>
       <ChatInput />
     </Container>
