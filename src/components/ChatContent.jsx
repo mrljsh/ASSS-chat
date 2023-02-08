@@ -4,12 +4,14 @@ import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import db from "./../firebase";
-import { doc, getDoc } from "firebase/firestore/lite";
+import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
 const ChatContent = () => {
   const { roomId } = useParams();
   const [channel, setChannel] = useState({});
+  const [messages, setMessages] = useState({});
 
   useEffect(() => {
     const getChannel = async () => {
@@ -23,7 +25,24 @@ const ChatContent = () => {
       }
     };
     getChannel();
+    getMessages();
   }, [roomId]);
+
+  function getMessages() {
+    return onSnapshot(
+      query(
+        collection(db, "rooms", roomId, "chat"),
+        orderBy("timestamp", "asc")
+      ),
+      (querySnapshot) => {
+        const messages = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setMessages(messages);
+      }
+    );
+  }
 
   return (
     <Container>

@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import db from "../firebase";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ChatContent from "./ChatContent";
