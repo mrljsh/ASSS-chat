@@ -6,12 +6,29 @@ import ChatMessage from "./ChatMessage";
 import db from "./../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
 
-const ChatContent = () => {
+const ChatContent = ({ user }) => {
+  const { name, photo } = user;
   const { roomId } = useParams();
   const [channel, setChannel] = useState({});
   const [messages, setMessages] = useState([]);
+
+  const sendMessage = async (messageInput) => {
+    await addDoc(collection(db, "rooms", roomId, "chat"), {
+      user: name,
+      userPhoto: photo,
+      timestamp: Timestamp.now(),
+      message: messageInput,
+    });
+  };
 
   useEffect(() => {
     const getChannel = async () => {
@@ -62,7 +79,7 @@ const ChatContent = () => {
           <ChatMessage key={message.id} message={message} />
         ))}
       </MessagesContainer>
-      <ChatInput />
+      <ChatInput sendMessage={sendMessage} />
     </Container>
   );
 };

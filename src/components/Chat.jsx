@@ -9,7 +9,7 @@ import ChatContent from "./ChatContent";
 
 const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     setUser(userData);
@@ -31,7 +31,7 @@ const Chat = ({ userData, signOut }) => {
         <Routes>
           <Route path="/" element={<p>Privatne poruke</p>}></Route>
           <Route path="/profile" element={<p>Profil</p>} />
-          <Route path="/chat/:roomId" element={<ChatContent />} />
+          <Route path="/chat/:roomId" element={<ChatContent user={user} />} />
         </Routes>
       </Main>
     </Container>

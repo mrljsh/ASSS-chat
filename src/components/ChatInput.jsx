@@ -1,12 +1,27 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { BiSend } from "react-icons/bi";
 
-const ChatInput = () => {
+const ChatInput = ({ sendMessage }) => {
+  const [message, setMessage] = useState("");
+
+  const handleSend = (e) => {
+    e.preventDefault();
+    if (message === "") return;
+    sendMessage(message);
+    setMessage("");
+  };
+
   return (
     <Container>
       <FormContainer>
-        <form>
-          <input type="text" placeholder="Унесите Вашу поруку..." />
+        <form onSubmit={(e) => handleSend(e)}>
+          <input
+            type="text"
+            placeholder="Унесите Вашу поруку..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <button type="submit">
             <BiSend />
           </button>
