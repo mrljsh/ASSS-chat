@@ -1,16 +1,35 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
+import db from "./../firebase";
+import { doc, getDoc } from "firebase/firestore/lite";
+import { useEffect } from "react";
 
 const ChatContent = () => {
   const { roomId } = useParams();
+  const [channel, setChannel] = useState({});
+
+  useEffect(() => {
+    const getChannel = async () => {
+      const docRef = doc(db, "rooms", roomId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setChannel(docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+    };
+    getChannel();
+  }, [roomId]);
 
   return (
     <Container>
       <Header>
         <ChannelDetails>
-          <ChannelName># {roomId} - Информациони системи</ChannelName>
+          <ChannelName># {channel.name_sr}</ChannelName>
           <ChannelDescription>
             Информационе системе предаје ...
           </ChannelDescription>
