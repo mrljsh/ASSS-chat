@@ -31,7 +31,9 @@ const ChatContent = () => {
         <ChannelDetails>
           <ChannelName># {channel.name_sr}</ChannelName>
           <ChannelDescription>
-            Информационе системе предаје ...
+            ESPB: {channel.espb} | Статус:{" "}
+            {channel.obavezan ? "Обавезан" : "Изборни"} | Семестар:{" "}
+            {channel.semester}
           </ChannelDescription>
         </ChannelDetails>
       </Header>
