@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 function ChatMessage({ message }) {
-  const { user, userPhoto } = message;
+  const { user, userPhoto, timestamp } = message;
+  const dateTime = new Date(timestamp.seconds * 1000);
 
   return (
     <Container>
@@ -10,7 +11,7 @@ function ChatMessage({ message }) {
       </UserImage>
       <MessageContent>
         <UserName>
-          {user} <span></span>
+          {user} <span>{dateTime.toLocaleString("sr")}</span>
         </UserName>
         <Message>{message.message}</Message>
       </MessageContent>
