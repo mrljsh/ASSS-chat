@@ -5,7 +5,7 @@ import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import db from "./../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import {
   collection,
   onSnapshot,
@@ -20,6 +20,7 @@ const ChatContent = ({ user }) => {
   const { roomId } = useParams();
   const [channel, setChannel] = useState({});
   const [messages, setMessages] = useState([]);
+  const containerRef = useRef(null);
 
   const sendMessage = async (messageInput) => {
     await addDoc(collection(db, "rooms", roomId, "chat"), {
@@ -29,6 +30,11 @@ const ChatContent = ({ user }) => {
       message: messageInput,
     });
   };
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    container.scrollTop = container.scrollHeight;
+  }, [messages]);
 
   useEffect(() => {
     const getChannel = async () => {
@@ -74,7 +80,7 @@ const ChatContent = ({ user }) => {
           </ChannelDescription>
         </ChannelDetails>
       </Header>
-      <MessagesContainer>
+      <MessagesContainer ref={containerRef}>
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}
