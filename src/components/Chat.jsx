@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ChatContent from "./ChatContent";
 
-const Chat = ({ userData }) => {
+const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState();
 
@@ -25,7 +25,7 @@ const Chat = ({ userData }) => {
 
   return (
     <Container>
-      <Navbar user={user} />
+      <Navbar user={user} signOut={signOut} />
       <Main>
         <Sidebar rooms={rooms} />
         <Routes>

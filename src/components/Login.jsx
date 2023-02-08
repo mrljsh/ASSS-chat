@@ -7,14 +7,17 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-const Login = ({ handleUser }) => {
+const Login = ({ handleUser, loggedOut }) => {
+  // Data persists on refresh
   onAuthStateChanged(auth, (currentUser) => {
-    const user = {
-      name: currentUser.displayName,
-      photo: currentUser.photoURL,
-      email: currentUser.email,
-    };
-    handleUser(user);
+    if (currentUser) {
+      const user = {
+        name: currentUser.displayName,
+        photo: currentUser.photoURL,
+        email: currentUser.email,
+      };
+      handleUser(user);
+    }
   });
 
   const signIn = () => {
@@ -39,6 +42,7 @@ const Login = ({ handleUser }) => {
   return (
     <Container>
       <LoginContainer>
+        {loggedOut && <LoggedOutSpan>Успешно сте се излоговали.</LoggedOutSpan>}
         <ImageContainer
           src={ASSSLogo}
           alt="Akademija Strukovnih studija Sumadija logo"
@@ -91,3 +95,7 @@ const Button = styled.button`
 `;
 
 const ImageContainer = styled.img``;
+
+const LoggedOutSpan = styled.span`
+  color: red;
+`;

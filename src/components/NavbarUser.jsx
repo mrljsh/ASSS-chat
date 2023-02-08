@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-const NavbarUser = ({ user }) => {
+const NavbarUser = ({ user, signOut }) => {
   const { name, photo } = user;
 
   return (
     <Container>
       <UserName>{name}</UserName>
-      <UserImage src={photo} alt={`${name} slika`} />
+      <UserImage src={photo} alt={`${name} slika`} onClick={signOut} />
     </Container>
   );
 };
