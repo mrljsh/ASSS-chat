@@ -36,37 +36,40 @@ const ChatContent = ({ user }) => {
     container.scrollTop = container.scrollHeight;
   }, [messages]);
 
-  useEffect(() => {
-    const getChannel = async () => {
-      const docRef = doc(db, "rooms", roomId);
-      const docSnap = await getDoc(docRef);
+  // useEffect(() => {
+  //   const getChannel = async () => {
+  //     const docRef = doc(db, "rooms", roomId);
+  //     const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        setChannel(docSnap.data());
-      } else {
-        console.log("No such document!");
-      }
-    };
+  //     if (docSnap.exists()) {
+  //       setChannel(docSnap.data());
+  //     } else {
+  //       console.log("No such document!");
+  //     }
+  //   };
 
-    function getMessages() {
-      return onSnapshot(
-        query(
-          collection(db, "rooms", roomId, "chat"),
-          orderBy("timestamp", "asc")
-        ),
-        (querySnapshot) => {
-          const messages = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setMessages(messages);
-        }
-      );
-    }
+  //   // function getMessages() {
+  //   //   const unsub = onSnapshot(
+  //   //     query(
+  //   //       collection(db, "rooms", roomId, "chat"),
+  //   //       orderBy("timestamp", "asc")
+  //   //     ),
+  //   //     (querySnapshot) => {
+  //   //       const messages = querySnapshot.docs.map((doc) => ({
+  //   //         id: doc.id,
+  //   //         ...doc.data(),
+  //   //       }));
+  //   //       setMessages(messages);
+  //   //     }
+  //   //   );
+  //   //   return () => {
+  //   //     unsub();
+  //   //   };
+  //   // }
 
-    getChannel();
-    getMessages();
-  }, [roomId]);
+  //   getChannel();
+  //   // getMessages();
+  // }, [roomId]);
 
   return (
     <Container>
