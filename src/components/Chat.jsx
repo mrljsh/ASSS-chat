@@ -13,7 +13,6 @@ const Chat = ({ userData, signOut }) => {
 
   useEffect(() => {
     setUser(userData);
-
     getChannels();
   }, [userData]);
 
@@ -31,7 +30,7 @@ const Chat = ({ userData, signOut }) => {
         <Routes>
           <Route path="/" element={<p>Privatne poruke</p>}></Route>
           <Route path="/profile" element={<p>Profil</p>} />
-          <Route path="/chat/:roomId" element={<ChatContent user={user} />} />
+          <Route path="/:roomId" element={<ChatContent user={user} />} />
         </Routes>
       </Main>
     </Container>
