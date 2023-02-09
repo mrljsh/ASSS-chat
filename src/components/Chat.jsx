@@ -5,8 +5,7 @@ import db, { auth } from "../firebase";
 import { collection, getDocs, onSnapshot, doc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import ChatContent from "./ChatContent";
+import { useNavigate, Outlet } from "react-router-dom";
 
 const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
@@ -38,11 +37,7 @@ const Chat = ({ userData, signOut }) => {
       <Navbar user={user} signOut={signOut} />
       <Main>
         <Sidebar rooms={rooms} />
-        <Routes>
-          <Route path="/" element={<p>Privatne poruke</p>}></Route>
-          <Route path="/profile" element={<p>Profil</p>} />
-          <Route path="/:roomId" element={<ChatContent user={user} />} />
-        </Routes>
+        <Outlet />
       </Main>
     </Container>
   );
