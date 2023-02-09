@@ -6,17 +6,14 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ handleUser, loggedOut }) => {
-  // Data persists on refresh
+  const navigate = useNavigate();
+
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
-      const user = {
-        name: currentUser.displayName,
-        photo: currentUser.photoURL,
-        email: currentUser.email,
-      };
-      handleUser(user);
+      navigate("/chat");
     }
   });
 
@@ -33,6 +30,7 @@ const Login = ({ handleUser, loggedOut }) => {
           email: user.email,
         };
         handleUser(newUser);
+        navigate("/chat");
       })
       .catch((error) => {
         console.log(error.message);

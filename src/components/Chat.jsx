@@ -1,19 +1,26 @@
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
-import db from "../firebase";
-import { collection, getDocs } from "firebase/firestore/lite";
+import db, { auth } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import ChatContent from "./ChatContent";
 
 const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  onAuthStateChanged(auth, (currentUser) => {
+    if (!currentUser) {
+      navigate("../");
+    }
+  });
 
   useEffect(() => {
     setUser(userData);
-
     getChannels();
   }, [userData]);
 
@@ -31,7 +38,7 @@ const Chat = ({ userData, signOut }) => {
         <Routes>
           <Route path="/" element={<p>Privatne poruke</p>}></Route>
           <Route path="/profile" element={<p>Profil</p>} />
-          <Route path="/chat/:roomId" element={<ChatContent />} />
+          <Route path="/:roomId" element={<ChatContent user={user} />} />
         </Routes>
       </Main>
     </Container>

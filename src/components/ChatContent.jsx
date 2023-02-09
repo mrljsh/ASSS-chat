@@ -4,12 +4,37 @@ import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import db from "./../firebase";
-import { doc, getDoc } from "firebase/firestore/lite";
-import { useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
 
-const ChatContent = () => {
+const ChatContent = ({ user }) => {
+  const { name, photo } = user;
   const { roomId } = useParams();
   const [channel, setChannel] = useState({});
+  const [messages, setMessages] = useState([]);
+  const containerRef = useRef(null);
+
+  const sendMessage = async (messageInput) => {
+    await addDoc(collection(db, "rooms", roomId, "chat"), {
+      user: name,
+      userPhoto: photo,
+      timestamp: Timestamp.now(),
+      message: messageInput,
+    });
+  };
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    container.scrollTop = container.scrollHeight;
+  }, [messages]);
 
   useEffect(() => {
     const getChannel = async () => {
@@ -22,7 +47,25 @@ const ChatContent = () => {
         console.log("No such document!");
       }
     };
+
+    function getMessages() {
+      return onSnapshot(
+        query(
+          collection(db, "rooms", roomId, "chat"),
+          orderBy("timestamp", "asc")
+        ),
+        (querySnapshot) => {
+          const messages = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setMessages(messages);
+        }
+      );
+    }
+
     getChannel();
+    getMessages();
   }, [roomId]);
 
   return (
@@ -37,10 +80,12 @@ const ChatContent = () => {
           </ChannelDescription>
         </ChannelDetails>
       </Header>
-      <MessagesContainer>
-        <ChatMessage />
+      <MessagesContainer ref={containerRef}>
+        {messages.map((message) => (
+          <ChatMessage key={message.id} message={message} />
+        ))}
       </MessagesContainer>
-      <ChatInput />
+      <ChatInput sendMessage={sendMessage} />
     </Container>
   );
 };

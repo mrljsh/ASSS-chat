@@ -1,19 +1,19 @@
 import styled from "styled-components";
 
-function ChatMessage() {
+function ChatMessage({ message }) {
+  const { user, userPhoto, timestamp } = message;
+  const dateTime = new Date(timestamp.seconds * 1000);
+
   return (
     <Container>
       <UserImage>
-        <img
-          src="https://pbs.twimg.com/profile_images/868465228639592448/Nj6Tcjws_400x400.jpg"
-          alt="User avatar"
-        ></img>
+        <img src={userPhoto} alt={`${user} avatar`}></img>
       </UserImage>
       <MessageContent>
         <UserName>
-          Драган Мрљеш <span>7/2/2023 - 18:29</span>
+          {user} <span>{dateTime.toLocaleString("sr")}</span>
         </UserName>
-        <Message>First Message</Message>
+        <Message>{message.message}</Message>
       </MessageContent>
     </Container>
   );
