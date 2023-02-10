@@ -5,12 +5,10 @@ import db, { auth } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import ChatContent from "./ChatContent";
+import { useNavigate, Outlet } from "react-router-dom";
 
 const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
-  const [user, setUser] = useState({});
   const navigate = useNavigate();
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -20,26 +18,21 @@ const Chat = ({ userData, signOut }) => {
   });
 
   useEffect(() => {
-    setUser(userData);
-    getChannels();
-  }, [userData]);
+    const getChannels = async () => {
+      const channels = collection(db, "rooms");
+      const channelsSnapshot = await getDocs(channels);
+      setRooms(channelsSnapshot.docs.map((channel) => channel.data()));
+    };
 
-  const getChannels = async () => {
-    const channels = collection(db, "rooms");
-    const channelsSnapshot = await getDocs(channels);
-    setRooms(channelsSnapshot.docs.map((channel) => channel.data()));
-  };
+    getChannels();
+  }, []);
 
   return (
     <Container>
-      <Navbar user={user} signOut={signOut} />
+      <Navbar user={userData} signOut={signOut} />
       <Main>
         <Sidebar rooms={rooms} />
-        <Routes>
-          <Route path="/" element={<p>Privatne poruke</p>}></Route>
-          <Route path="/profile" element={<p>Profil</p>} />
-          <Route path="/:roomId" element={<ChatContent user={user} />} />
-        </Routes>
+        <Outlet context={rooms} />
       </Main>
     </Container>
   );

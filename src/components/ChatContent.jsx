@@ -1,10 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import db from "./../firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import {
   collection,
@@ -18,7 +17,8 @@ import {
 const ChatContent = ({ user }) => {
   const { name, photo } = user;
   const { roomId } = useParams();
-  const [channel, setChannel] = useState({});
+  const rooms = useOutletContext();
+  const channel = rooms.find((room) => room.id === roomId);
   const [messages, setMessages] = useState([]);
   const containerRef = useRef(null);
 
@@ -37,19 +37,8 @@ const ChatContent = ({ user }) => {
   }, [messages]);
 
   useEffect(() => {
-    const getChannel = async () => {
-      const docRef = doc(db, "rooms", roomId);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setChannel(docSnap.data());
-      } else {
-        console.log("No such document!");
-      }
-    };
-
     function getMessages() {
-      return onSnapshot(
+      const unsub = onSnapshot(
         query(
           collection(db, "rooms", roomId, "chat"),
           orderBy("timestamp", "asc")
@@ -62,23 +51,26 @@ const ChatContent = ({ user }) => {
           setMessages(messages);
         }
       );
+      return () => {
+        unsub();
+      };
     }
-
-    getChannel();
     getMessages();
   }, [roomId]);
 
   return (
     <Container>
       <Header>
-        <ChannelDetails>
-          <ChannelName># {channel.name_sr}</ChannelName>
-          <ChannelDescription>
-            ESPB: {channel.espb} | Статус:{" "}
-            {channel.obavezan ? "Обавезан" : "Изборни"} | Семестар:{" "}
-            {channel.semester}
-          </ChannelDescription>
-        </ChannelDetails>
+        {channel && (
+          <ChannelDetails>
+            <ChannelName># {channel.name_sr}</ChannelName>
+            <ChannelDescription>
+              ESPB: {channel.espb} | Статус:{" "}
+              {channel.obavezan ? "Обавезан" : "Изборни"} | Семестар:{" "}
+              {channel.semester}
+            </ChannelDescription>
+          </ChannelDetails>
+        )}
       </Header>
       <MessagesContainer ref={containerRef}>
         {messages.map((message) => (
