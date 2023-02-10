@@ -6,7 +6,12 @@ const NavbarUser = ({ user, signOut }) => {
   return (
     <Container>
       <UserName>{name}</UserName>
-      <UserImage src={photo} alt={`${name} slika`} onClick={signOut} />
+      <UserImage
+        src={photo}
+        alt={`${name} slika`}
+        onClick={signOut}
+        referrerpolicy="no-referrer"
+      />
     </Container>
   );
 };
