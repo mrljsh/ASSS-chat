@@ -32,7 +32,7 @@ const Chat = ({ userData, signOut }) => {
       <Navbar user={userData} signOut={signOut} />
       <Main>
         <Sidebar rooms={rooms} />
-        <Outlet />
+        <Outlet context={rooms} />
       </Main>
     </Container>
   );
