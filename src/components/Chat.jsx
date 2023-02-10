@@ -2,14 +2,13 @@ import Navbar from "./Navbar";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import db, { auth } from "../firebase";
-import { collection, getDocs, onSnapshot, doc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
 const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
-  const [user, setUser] = useState(userData);
   const navigate = useNavigate();
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -19,14 +18,10 @@ const Chat = ({ userData, signOut }) => {
   });
 
   useEffect(() => {
-    const getChannels = () => {
-      const unsub = onSnapshot(doc(collection(db, "rooms")), (doc) => {
-        setRooms(doc.data());
-      });
-
-      return () => {
-        unsub();
-      };
+    const getChannels = async () => {
+      const channels = collection(db, "rooms");
+      const channelsSnapshot = await getDocs(channels);
+      setRooms(channelsSnapshot.docs.map((channel) => channel.data()));
     };
 
     getChannels();
@@ -34,7 +29,7 @@ const Chat = ({ userData, signOut }) => {
 
   return (
     <Container>
-      <Navbar user={user} signOut={signOut} />
+      <Navbar user={userData} signOut={signOut} />
       <Main>
         <Sidebar rooms={rooms} />
         <Outlet />
