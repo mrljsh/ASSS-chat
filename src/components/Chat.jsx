@@ -11,19 +11,26 @@ const Chat = ({ userData, signOut }) => {
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
 
-  onAuthStateChanged(auth, (currentUser) => {
-    if (!currentUser) {
-      navigate("../");
-    }
-  });
-
   useEffect(() => {
+    // Gets channels information from firebase db
     const getChannels = async () => {
       const channels = collection(db, "rooms");
       const channelsSnapshot = await getDocs(channels);
       setRooms(channelsSnapshot.docs.map((channel) => channel.data()));
     };
 
+    const userLoggedOut = () => {
+      //If there's no authenticated user, redirects to / (login)
+      const unsub = onAuthStateChanged(auth, (authUser) => {
+        !authUser && navigate("/");
+      });
+
+      return () => {
+        unsub();
+      };
+    };
+
+    userLoggedOut();
     getChannels();
   }, []);
 
