@@ -7,14 +7,21 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Login = ({ handleUser, loggedOut }) => {
   const navigate = useNavigate();
 
-  onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      navigate("/chat");
-    }
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        navigate("/chat");
+      }
+    });
+
+    return () => {
+      unsub();
+    };
   });
 
   const signIn = () => {
