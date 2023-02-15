@@ -51,7 +51,7 @@ function App() {
             element={<Chat userData={user} signOut={signOutApp} />}
           >
             <Route index element={<p>Privatne poruke</p>}></Route>
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={<Profile user={user} />} />
             <Route path=":roomId" element={<ChatContent user={user} />} />
           </Route>
         </Routes>
