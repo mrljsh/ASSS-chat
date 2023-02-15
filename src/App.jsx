@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chat from "./components/Chat";
 import ChatContent from "./components/ChatContent";
 import Login from "./components/Login";
+import Profile from "./components/Profile";
 import { auth } from "./firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 
@@ -50,7 +51,7 @@ function App() {
             element={<Chat userData={user} signOut={signOutApp} />}
           >
             <Route index element={<p>Privatne poruke</p>}></Route>
-            <Route path="profile" element={<p>Profil</p>} />
+            <Route path="profile" element={<Profile />} />
             <Route path=":roomId" element={<ChatContent user={user} />} />
           </Route>
         </Routes>
