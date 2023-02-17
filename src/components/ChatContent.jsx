@@ -18,7 +18,7 @@ const ChatContent = ({ user }) => {
   const { name, photo } = user;
   const { roomId } = useParams();
   const rooms = useOutletContext();
-  const channel = rooms.find((room) => room.id === roomId);
+  const [channel, setChannel] = useState({});
   const [messages, setMessages] = useState([]);
   const containerRef = useRef(null);
 
@@ -37,26 +37,26 @@ const ChatContent = ({ user }) => {
   }, [messages]);
 
   useEffect(() => {
-    function getMessages() {
-      const unsub = onSnapshot(
-        query(
-          collection(db, "rooms", roomId, "chat"),
-          orderBy("timestamp", "asc")
-        ),
-        (querySnapshot) => {
-          const messages = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setMessages(messages);
-        }
-      );
-      return () => {
-        unsub();
-      };
-    }
-    getMessages();
-  }, [roomId]);
+    const getChannel = () =>
+      setChannel(rooms.find((room) => room.id === roomId));
+    const unsub = onSnapshot(
+      query(
+        collection(db, "rooms", roomId, "chat"),
+        orderBy("timestamp", "asc")
+      ),
+      (querySnapshot) => {
+        const messages = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setMessages(messages);
+      }
+    );
+    return () => {
+      unsub();
+      getChannel();
+    };
+  }, [roomId, rooms]);
 
   return (
     <Container>
