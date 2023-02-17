@@ -32,6 +32,7 @@ const Login = ({ handleUser, loggedOut }) => {
         const token = credential.accessToken;
         const user = result.user;
         const newUser = {
+          uid: user.uid,
           name: user.displayName,
           photo: user.photoURL,
           email: user.email,

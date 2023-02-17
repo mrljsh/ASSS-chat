@@ -19,6 +19,7 @@ function App() {
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
       const user = {
+        uid: currentUser.uid,
         name: currentUser.displayName,
         photo: currentUser.photoURL,
         email: currentUser.email,
