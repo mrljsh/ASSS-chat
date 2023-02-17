@@ -11,10 +11,6 @@ function App() {
   const [user, setUser] = useState({});
   const [loggedOut, setLoggedOut] = useState(false);
 
-  const getUser = (user) => {
-    setUser(user);
-  };
-
   // Data persists on refresh
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
@@ -43,10 +39,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route
-            path="/"
-            element={<Login handleUser={getUser} loggedOut={loggedOut} />}
-          />
+          <Route path="/" element={<Login loggedOut={loggedOut} />} />
           <Route
             path="chat"
             element={<Chat userData={user} signOut={signOutApp} />}

@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import ASSSLogo from "./../assets/logo-arandjelovac.png";
-import { auth, provider } from "../firebase";
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from "firebase/auth";
+import db, { auth, provider } from "../firebase";
+import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 
-const Login = ({ handleUser, loggedOut }) => {
+const Login = ({ loggedOut }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,25 +28,28 @@ const Login = ({ handleUser, loggedOut }) => {
     };
   });
 
-  const signIn = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        // eslint-disable-next-line no-unused-vars
-        const token = credential.accessToken;
-        const user = result.user;
-        const newUser = {
+  const signIn = async () => {
+    try {
+      const res = await signInWithPopup(auth, provider);
+      const user = res.user;
+      const queryUser = query(
+        collection(db, "users"),
+        where("id", "==", user.uid)
+      );
+      const docs = await getDocs(queryUser);
+      if (docs.docs.length === 0) {
+        await setDoc(doc(db, "users", user.uid), {
           uid: user.uid,
           name: user.displayName,
           photo: user.photoURL,
           email: user.email,
-        };
-        handleUser(newUser);
-        navigate("/chat");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+          index: prompt("Unesite broj indeksa: "),
+        });
+      }
+      navigate("/chat");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
