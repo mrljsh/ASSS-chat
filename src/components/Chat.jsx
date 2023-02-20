@@ -32,7 +32,7 @@ const Chat = ({ userData, signOut }) => {
 
     userLoggedOut();
     getChannels();
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>
