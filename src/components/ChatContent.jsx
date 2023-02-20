@@ -13,9 +13,11 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
+import { useAuthContext } from "../AuthContext";
 
-const ChatContent = ({ user }) => {
-  const { name, photo } = user;
+const ChatContent = () => {
+  const { userData } = useAuthContext();
+  const { name, photo } = userData;
   const { roomId } = useParams();
   const rooms = useOutletContext();
   const [channel, setChannel] = useState({});

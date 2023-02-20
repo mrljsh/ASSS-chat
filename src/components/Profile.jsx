@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { BiUser, BiEnvelope } from "react-icons/bi";
+import { useAuthContext } from "../AuthContext";
 
-const Profile = ({ user }) => {
-  const { name, photo, email } = user;
+const Profile = () => {
+  const { userData } = useAuthContext();
+  const { name, photo, email } = userData;
 
   return (
     <Container>
