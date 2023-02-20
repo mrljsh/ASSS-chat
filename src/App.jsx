@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import { auth } from "./firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
   const [user, setUser] = useState({});
@@ -42,7 +43,11 @@ function App() {
           <Route path="/" element={<Login loggedOut={loggedOut} />} />
           <Route
             path="chat"
-            element={<Chat userData={user} signOut={signOutApp} />}
+            element={
+              <AuthProvider>
+                <Chat userData={user} signOut={signOutApp} />
+              </AuthProvider>
+            }
           >
             <Route index element={<p>Privatne poruke</p>}></Route>
             <Route path="profile" element={<Profile user={user} />} />
