@@ -49,7 +49,7 @@ function App() {
             path="chat"
             element={
               <AuthProvider>
-                <Chat userData={user} signOut={signOutApp} />
+                <Chat signOut={signOutApp} />
               </AuthProvider>
             }
           >

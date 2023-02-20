@@ -6,12 +6,12 @@ import { auth } from "./firebase";
 
 const AuthContext = createContext();
 
-export const useAuth = () => {
+export const useAuthContext = () => {
   return useContext(AuthContext);
 };
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState();
+  const [userData, setuserData] = useState();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
           photo: currentUser.photoURL,
           email: currentUser.email,
         };
-        setCurrentUser(user);
+        setuserData(user);
       }
     });
 
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const value = {
-    currentUser,
+    userData,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
