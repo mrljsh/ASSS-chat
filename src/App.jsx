@@ -5,34 +5,15 @@ import ChatContent from "./components/ChatContent";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import { auth } from "./firebase";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { AuthProvider } from "./AuthContext";
-import { useEffect } from "react";
 
 function App() {
-  const [user, setUser] = useState({});
   const [loggedOut, setLoggedOut] = useState(false);
-
-  useEffect(() => {
-    // Data persists on refresh
-    const unsub = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        const user = {
-          uid: currentUser.uid,
-          name: currentUser.displayName,
-          photo: currentUser.photoURL,
-          email: currentUser.email,
-        };
-        setUser(user);
-      }
-    });
-    return () => unsub();
-  }, []);
 
   const signOutApp = () => {
     signOut(auth)
       .then(() => {
-        setUser(null);
         setLoggedOut(true);
       })
       .catch((error) => {
