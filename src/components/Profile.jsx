@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BiUser, BiEnvelope } from "react-icons/bi";
+import { BiUser, BiEnvelope, BiKey } from "react-icons/bi";
 import { useAuthContext } from "../AuthContext";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -54,7 +54,7 @@ const Profile = () => {
             </Data>
           </DataContainer>
           <DataContainer>
-            <BiEnvelope />
+            <BiKey />
             <Data>
               <p>Број индекса:</p>
               <p>{index}</p>
@@ -74,11 +74,12 @@ const ProfileContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 8fr;
   padding: 16px;
+  gap: 24px;
 `;
 
 const ImageContainer = styled.div`
   > img {
-    max-width: 200px;
+    width: 200px;
   }
 `;
 
