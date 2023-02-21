@@ -17,7 +17,7 @@ import { useAuthContext } from "../AuthContext";
 
 const ChatContent = () => {
   const { userData } = useAuthContext();
-  const { name, photo } = userData;
+  const { name, photo, uid } = userData;
   const { roomId } = useParams();
   const rooms = useOutletContext();
   const [channel, setChannel] = useState({});
@@ -26,6 +26,7 @@ const ChatContent = () => {
 
   const sendMessage = async (messageInput) => {
     await addDoc(collection(db, "rooms", roomId, "chat"), {
+      uid,
       user: name,
       userPhoto: photo,
       timestamp: Timestamp.now(),
