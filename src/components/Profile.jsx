@@ -1,10 +1,35 @@
 import styled from "styled-components";
 import { BiUser, BiEnvelope } from "react-icons/bi";
 import { useAuthContext } from "../AuthContext";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import db from "../firebase";
 
 const Profile = () => {
+  const [user, setUser] = useState({});
+  const { name, photo, email, index } = user;
+  const { userId } = useParams();
   const { userData } = useAuthContext();
-  const { name, photo, email } = userData;
+  const uid = userData?.uid;
+  const searchUserId = userId || uid;
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const userRef = doc(db, "users", searchUserId);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        setUser(userSnap.data());
+      } else {
+        console.log("err, no document");
+      }
+    };
+
+    return () => {
+      getUserData();
+    };
+  }, [searchUserId]);
 
   return (
     <Container>
@@ -26,6 +51,13 @@ const Profile = () => {
             <Data>
               <p>E-mail:</p>
               <p>{email}</p>
+            </Data>
+          </DataContainer>
+          <DataContainer>
+            <BiEnvelope />
+            <Data>
+              <p>Број индекса:</p>
+              <p>{index}</p>
             </Data>
           </DataContainer>
         </div>

@@ -35,7 +35,9 @@ function App() {
             }
           >
             <Route index element={<p>Privatne poruke</p>}></Route>
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={<Profile />}>
+              <Route path=":userId" element={<Profile />} />
+            </Route>
             <Route path=":roomId" element={<ChatContent />} />
           </Route>
         </Routes>
