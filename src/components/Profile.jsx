@@ -11,8 +11,7 @@ const Profile = () => {
   const { name, photo, email, index } = user;
   const { userId } = useParams();
   const { userData } = useAuthContext();
-  const uid = userData?.uid;
-  const searchUserId = userId || uid;
+  const searchUserId = userId || userData?.uid;
 
   useEffect(() => {
     const getUserData = async () => {
@@ -26,9 +25,7 @@ const Profile = () => {
       }
     };
 
-    return () => {
-      getUserData();
-    };
+    getUserData();
   }, [searchUserId]);
 
   return (

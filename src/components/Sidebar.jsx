@@ -11,7 +11,7 @@ const Sidebar = ({ rooms }) => {
           <BiEnvelope />
           Ваше приватне поруке
         </SidebarLink>
-        <SidebarLink to="./profile">
+        <SidebarLink to="./profile/">
           <BiUser />
           Ваш профил
         </SidebarLink>
