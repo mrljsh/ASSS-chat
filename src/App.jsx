@@ -5,29 +5,15 @@ import ChatContent from "./components/ChatContent";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import { auth } from "./firebase";
-import { signOut, onAuthStateChanged } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
-  const [user, setUser] = useState({});
   const [loggedOut, setLoggedOut] = useState(false);
-
-  // Data persists on refresh
-  onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      const user = {
-        uid: currentUser.uid,
-        name: currentUser.displayName,
-        photo: currentUser.photoURL,
-        email: currentUser.email,
-      };
-      setUser(user);
-    }
-  });
 
   const signOutApp = () => {
     signOut(auth)
       .then(() => {
-        setUser(null);
         setLoggedOut(true);
       })
       .catch((error) => {
@@ -42,11 +28,15 @@ function App() {
           <Route path="/" element={<Login loggedOut={loggedOut} />} />
           <Route
             path="chat"
-            element={<Chat userData={user} signOut={signOutApp} />}
+            element={
+              <AuthProvider>
+                <Chat signOut={signOutApp} />
+              </AuthProvider>
+            }
           >
             <Route index element={<p>Privatne poruke</p>}></Route>
-            <Route path="profile" element={<Profile user={user} />} />
-            <Route path=":roomId" element={<ChatContent user={user} />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path=":roomId" element={<ChatContent />} />
           </Route>
         </Routes>
       </Router>
