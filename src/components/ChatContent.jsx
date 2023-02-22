@@ -13,9 +13,11 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
+import { useAuthContext } from "../AuthContext";
 
-const ChatContent = ({ user }) => {
-  const { name, photo } = user;
+const ChatContent = () => {
+  const { userData } = useAuthContext();
+  const { name, photo, uid } = userData;
   const { roomId } = useParams();
   const rooms = useOutletContext();
   const [channel, setChannel] = useState({});
@@ -24,6 +26,7 @@ const ChatContent = ({ user }) => {
 
   const sendMessage = async (messageInput) => {
     await addDoc(collection(db, "rooms", roomId, "chat"), {
+      uid,
       user: name,
       userPhoto: photo,
       timestamp: Timestamp.now(),

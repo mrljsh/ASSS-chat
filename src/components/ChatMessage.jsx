@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function ChatMessage({ message }) {
-  const { user, userPhoto, timestamp } = message;
+  const { uid, user, userPhoto, timestamp } = message;
   const dateTime = new Date(timestamp.seconds * 1000);
 
   return (
     <Container>
-      <UserImage>
-        <img src={userPhoto} alt={`${user} avatar`}></img>
-      </UserImage>
+      <Link to={`/chat/profile/${uid}`}>
+        <UserImage>
+          <img src={userPhoto} alt={`${user} avatar`}></img>
+        </UserImage>
+      </Link>
       <MessageContent>
         <UserName>
           {user} <span>{dateTime.toLocaleString("sr")}</span>

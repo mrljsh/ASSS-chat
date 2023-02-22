@@ -1,8 +1,32 @@
 import styled from "styled-components";
-import { BiUser, BiEnvelope } from "react-icons/bi";
+import { BiUser, BiEnvelope, BiKey } from "react-icons/bi";
+import { useAuthContext } from "../AuthContext";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import db from "../firebase";
 
-const Profile = ({ user }) => {
-  const { name, photo, email } = user;
+const Profile = () => {
+  const [user, setUser] = useState({});
+  const { name, photo, email, index } = user;
+  const { userId } = useParams();
+  const { userData } = useAuthContext();
+  const searchUserId = userId || userData?.uid;
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const userRef = doc(db, "users", searchUserId);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        setUser(userSnap.data());
+      } else {
+        console.log("err, no document");
+      }
+    };
+
+    getUserData();
+  }, [searchUserId]);
 
   return (
     <Container>
@@ -26,6 +50,13 @@ const Profile = ({ user }) => {
               <p>{email}</p>
             </Data>
           </DataContainer>
+          <DataContainer>
+            <BiKey />
+            <Data>
+              <p>Број индекса:</p>
+              <p>{index}</p>
+            </Data>
+          </DataContainer>
         </div>
       </ProfileContainer>
     </Container>
@@ -40,11 +71,12 @@ const ProfileContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 8fr;
   padding: 16px;
+  gap: 24px;
 `;
 
 const ImageContainer = styled.div`
   > img {
-    max-width: 200px;
+    width: 200px;
   }
 `;
 

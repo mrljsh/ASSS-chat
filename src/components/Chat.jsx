@@ -6,10 +6,12 @@ import { collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+import { useAuthContext } from "../AuthContext";
 
-const Chat = ({ userData, signOut }) => {
+const Chat = ({ signOut }) => {
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
+  const { userData } = useAuthContext();
 
   useEffect(() => {
     // Gets channels information from firebase db
@@ -32,7 +34,7 @@ const Chat = ({ userData, signOut }) => {
 
     userLoggedOut();
     getChannels();
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>
