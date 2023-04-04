@@ -72,6 +72,11 @@ const ProfileContainer = styled.div`
   grid-template-columns: 1fr 8fr;
   padding: 16px;
   gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 8fr;
+  }
 `;
 
 const ImageContainer = styled.div`
