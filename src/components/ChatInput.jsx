@@ -56,7 +56,7 @@ const FormContainer = styled.div`
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
       box-shadow: none;
-      font-size: 16px 1rem;
+      font-size: 16px;
     }
 
     button {

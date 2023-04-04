@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import NavbarUser from "./NavbarUser";
 import ASSSLogo from "./../assets/logo-arandjelovac.png";
+import { BiMenu } from "react-icons/bi";
 
-const Navbar = ({ user, signOut }) => {
+const Navbar = ({ user, signOut, handleSidebar }) => {
   return (
     <Container>
+      <MenuButton onClick={handleSidebar}>
+        <BiMenu />
+      </MenuButton>
       <Branding>
         <Img src={ASSSLogo} alt="ASSS logo" />
         <Heading>ASSS Chat</Heading>
@@ -37,4 +41,22 @@ const Branding = styled.div`
 
 const Img = styled.img`
   max-width: 80px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MenuButton = styled.button`
+  all: unset;
+  display: none;
+  cursor: pointer;
+  font-size: 48px;
+  transition: 0.15s;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
