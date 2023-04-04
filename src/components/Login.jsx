@@ -34,7 +34,7 @@ const Login = ({ loggedOut }) => {
       const user = res.user;
       const queryUser = query(
         collection(db, "users"),
-        where("id", "==", user.uid)
+        where("uid", "==", user.uid)
       );
       const docs = await getDocs(queryUser);
       if (docs.docs.length === 0) {
