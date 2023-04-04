@@ -13,6 +13,12 @@ const Chat = ({ signOut }) => {
   const navigate = useNavigate();
   const { userData } = useAuthContext();
 
+  const [showSidebar, setSidebar] = useState(false);
+
+  const handleSidebarClick = () => {
+    setSidebar(!showSidebar);
+  };
+
   useEffect(() => {
     // Gets channels information from firebase db
     const getChannels = async () => {
@@ -38,8 +44,12 @@ const Chat = ({ signOut }) => {
 
   return (
     <Container>
-      <Navbar user={userData} signOut={signOut} />
-      <Main>
+      <Navbar
+        user={userData}
+        signOut={signOut}
+        handleSidebar={handleSidebarClick}
+      />
+      <Main showSidebar={showSidebar}>
         <Sidebar rooms={rooms} />
         <Outlet context={rooms} />
       </Main>
@@ -58,4 +68,10 @@ const Container = styled.div`
 const Main = styled.div`
   display: grid;
   grid-template-columns: 280px auto;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    grid-template-columns: ${(props) =>
+      props.showSidebar ? "1fr 0" : "0 1fr"};
+  }
 `;
