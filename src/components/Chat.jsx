@@ -50,7 +50,11 @@ const Chat = ({ signOut }) => {
         handleSidebar={handleSidebarClick}
       />
       <Main showSidebar={showSidebar}>
-        <Sidebar rooms={rooms} handleSidebar={handleSidebarClick} />
+        <Sidebar
+          rooms={rooms}
+          handleSidebar={handleSidebarClick}
+          showSidebar={showSidebar}
+        />
         <Outlet context={rooms} />
       </Main>
     </Container>
@@ -69,9 +73,9 @@ const Main = styled.div`
   display: grid;
   grid-template-columns: 280px auto;
   overflow: hidden;
+  position: relative;
 
   @media (max-width: 768px) {
-    grid-template-columns: ${(props) =>
-      props.showSidebar ? "1fr 0" : "0 1fr"};
+    grid-template-columns: 1fr;
   }
 `;

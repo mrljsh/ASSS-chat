@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { BiEnvelope, BiUser } from "react-icons/bi";
 
-const Sidebar = ({ rooms, handleSidebar }) => {
+const Sidebar = ({ rooms, handleSidebar, showSidebar }) => {
   return (
-    <Container>
+    <Container className={showSidebar ? "show-sidebar" : ""}>
       <SchoolSection>Одсек у Аранђеловцу</SchoolSection>
       <GroupContainer>
         <SidebarLink to="./" onClick={handleSidebar}>
@@ -41,6 +41,20 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 64px min-content auto;
   z-index: 9;
+  transition: all 0.5s ease;
+
+  @media (max-width: 768px) {
+    width: 280px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -280px;
+    border-right: 1px solid rgba(204, 204, 204, 0.4);
+
+    &.show-sidebar {
+      left: 0;
+    }
+  }
 
   &::-webkit-scrollbar {
     display: none;
