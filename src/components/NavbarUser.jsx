@@ -27,6 +27,10 @@ const UserName = styled.span`
   font-weight: 400;
   font-size: 1em;
   margin-right: 8px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const UserImage = styled.img`
