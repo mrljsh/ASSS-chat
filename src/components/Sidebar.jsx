@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { BiEnvelope, BiUser } from "react-icons/bi";
 
-const Sidebar = ({ rooms }) => {
+const Sidebar = ({ rooms, handleSidebar }) => {
   return (
     <Container>
       <SchoolSection>Одсек у Аранђеловцу</SchoolSection>
       <GroupContainer>
-        <SidebarLink to="./">
+        <SidebarLink to="./" onClick={handleSidebar}>
           <BiEnvelope />
           Ваше приватне поруке
         </SidebarLink>
-        <SidebarLink to="./profile/">
+        <SidebarLink to="./profile/" onClick={handleSidebar}>
           <BiUser />
           Ваш профил
         </SidebarLink>
@@ -19,7 +19,11 @@ const Sidebar = ({ rooms }) => {
       <GroupContainer>
         <GroupName>Предмети</GroupName>
         {rooms.map((room) => (
-          <SidebarLink to={`/chat/${room.id}`} key={room.id}>
+          <SidebarLink
+            to={`/chat/${room.id}`}
+            key={room.id}
+            onClick={handleSidebar}
+          >
             # {room.name_sr}
           </SidebarLink>
         ))}

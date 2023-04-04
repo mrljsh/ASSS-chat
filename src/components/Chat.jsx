@@ -50,7 +50,7 @@ const Chat = ({ signOut }) => {
         handleSidebar={handleSidebarClick}
       />
       <Main showSidebar={showSidebar}>
-        <Sidebar rooms={rooms} />
+        <Sidebar rooms={rooms} handleSidebar={handleSidebarClick} />
         <Outlet context={rooms} />
       </Main>
     </Container>
