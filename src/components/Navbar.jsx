@@ -49,15 +49,14 @@ const Img = styled.img`
 
 const MenuButton = styled.button`
   all: unset;
-  font-size: 48px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.15s;
   display: none;
+  cursor: pointer;
+  font-size: 48px;
+  transition: 0.15s;
 
   @media (max-width: 768px) {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
